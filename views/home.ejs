@@ -1,8 +1,5 @@
-
-<h1>
-    Codeial / <%= title %>
-</h1>
-
+<link rel="stylesheet" href="/css/home.css">
+<div id="home-container">
 <section id="feed-posts">
     <h4>Posts</h4>
     <% if(locals.user){ %>
@@ -15,41 +12,8 @@
     <div id="posts-list-container">
         <ul>
             <% for(post of posts){%>
-                <li>
-                    <P>
-                        <% if(locals.user && locals.user.id == post.user.id){%>
-                            <small>
-                                <a href="/posts/destroy/<%= post.id %>">X</a>
-                            </small>
-                            <% } %>
-                    <%= post.content %>
-                    <br>
-                    <small>
-                        <%= post.user.name %>
-                    </small></P>
-                    <div class="post-comments">
-                        <% if(locals.user){ %>
-                            <form action="/comments/create" method="POST">
-                                <input type=""text name="content" placeholder="Type here to add comment.." required>
-                                <input type="hidden" name="post" value="<%= post._id %>">
-                                <input type="submit" value="Add Comment">
-                            </form>
-                            <%}%>
-                            <div id="posts-list-container">
-                                <ul>
-                                    <% for(post of posts){%>
-                                       
-                                        <%- include('_post') -%>
-                                         
-                                        <%}%>
-                                     
-                                </ul>
-                            </div>
-                           
-                    </div>
-                </li>
-
-                <%}%>
+                <%- include('_post') -%>
+            <% } %>    
         </ul>
     </div>
 </section>
@@ -62,6 +26,16 @@
         <%}%>
 
 </section>
+</div>
+<script src="/js/home_posts.js"></script>
+<script src="/js/home_post_comments.js"></script>
+
+<script>
+    $('.toggle-like-button').each(function(){
+        let self=this;
+        let toggleLike= new ToggleLike(self);
+    });
+</script>
 
 
 
