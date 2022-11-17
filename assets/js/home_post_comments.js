@@ -15,9 +15,10 @@ let createComment=function(postId){
             success:function(data){
                 let newComment= pSelf.newCommentDom(data.data.comment);
                 $(`#post-comments-${postId}`).prepend(newComment);
+                pSelf.deleteComment($(' .delete-comment-button',newComment));
 
-                new toggleLike($(' .toggle-like-button',newComment));
-                new notify({
+                new ToggleLike($(' .toggle-like-button',newComment));
+                new Noty({
                     theme:'relax',
                     text:"Comment published",
                     type:'success',
@@ -34,10 +35,6 @@ let newCommentDom=function(comment){
     return $(`<li id="comment-${comment._id}">
     <p>
         
-            <small>
-                <a class="delete=comment-button"href="/comments/destroy/${comment.id }">X</a>
-            </small>
-           
             ${ comment.content }
         <br>
         <small>
@@ -47,6 +44,10 @@ let newCommentDom=function(comment){
                 0 Likes
             </a>    
         </small>
+        <small>
+        <a class="delete=comment-button"href="/comments/destroy/${comment._id }">X</a>
+    </small>
+   
     </p>
 </li>`)
 }

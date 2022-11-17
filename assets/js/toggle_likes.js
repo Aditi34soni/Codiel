@@ -6,20 +6,21 @@ class ToggleLike{
         this.toggleLike();
     }
     toggleLike(){
-        $(this.toggle).click(function(e){
+        $(this.toggler).click(function(e){
             e.preventDefault();
-            let self =this;
+            let self = this;
+
             $.ajax({
                 type:'POST',
-                url:$(self).attr('href'),
+                url: $(self).attr('href'),
             })
             .done(function(data){
-                let likesCount = parseInt($(self).attr('data-link'));
+                let likesCount = parseInt($(self).attr('data-likes'));
                 console.log(likesCount);
                 if(data.data.deleted == true){
-                    likeCount -= 1;
+                    likesCount -= 1;
                 }else{
-                    likeCount += 1;
+                    likesCount += 1;
                 }
                 
                 $(self).attr('data-likes',LikesCount);

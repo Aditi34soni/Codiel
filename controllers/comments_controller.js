@@ -29,9 +29,9 @@ module.exports.create=async function(req,res){
             if(req.xhr){
                 return res.status(200).json({
                     data:{
-                        post:post
+                        comment:comment
                     },
-                    message:"Post created!"
+                    message:"Comment created!"
                 })
             }
              
@@ -59,7 +59,7 @@ module.exports.destroy =async function(req,res){
                             data:{
                                 comment_id:req.params.id
                             },
-                            message:"Post deleted"
+                            message:"Comment deleted"
                         });
                     }
                     req.flash('success','comment deleted');

@@ -2,16 +2,15 @@ const Post=require('../models/post')
 const Comment=require('../models/comment');
 const Like = require('../models/like');
 
-module.exports.posts = function(re,res){
-    return res.end('<h1>Posts</h1>');
-}
+
 module.exports.create= async function(req,res){
     try{
-    await Post.create({
+    let post=await Post.create({
         content:req.body.content,
         user:req.user._id
     }); 
     if(req.xhr){
+        post=await post.populate('user','name').execPopulate();
         return res.status(200).json({
             data:{
                 post:post
@@ -23,6 +22,7 @@ module.exports.create= async function(req,res){
     return res.redirect('back');
     }catch(err){
         req.flash('error',err);
+        console.log(err);
         return res.redirect('back');
     }
 }

@@ -8,6 +8,7 @@ const { notify } = require("../../routes");
 
         newPostForm.submit(function(e){
             e.preventDefault();
+
             $.ajax({
                 type:'post',
                 url:'/posts/create',
@@ -17,10 +18,10 @@ const { notify } = require("../../routes");
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button',newPost));
                     
-                    new PostComments(data.dat.post._id);
+                    new PostComments(data.data.post._id);
 
-                    new toggleLike($(' .toggle-like-button', newPost));
-                    new notify({
+                    new ToggleLike($(' .toggle-like-button', newPost));
+                    new Noty({
                         theme:'relax',
                         text:"Post published",
                         type:'success',
@@ -37,9 +38,6 @@ const { notify } = require("../../routes");
         return $(`<li id="post-${post._id}">
         <p>
             
-            <small>
-                <a class="delete-post-button" href="/posts/destroy/${post._id }">X</a>
-            </small>
           ${post.content}
         <br>
         <small>
@@ -50,7 +48,10 @@ const { notify } = require("../../routes");
             <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
                 0 Likes
             </a>
-         </small>        
+         </small>   
+         <small>
+         <a class="delete-post-button" href="/posts/destroy/${post._id }">X</a>
+     </small>     
 </P>
         <div class="post-comments">
             
