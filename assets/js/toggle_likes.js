@@ -5,13 +5,14 @@ class ToggleLike{
         this.toggler = toggleElement;
         this.toggleLike();
     }
+
     toggleLike(){
         $(this.toggler).click(function(e){
             e.preventDefault();
-            let self = this;
-
+            let self =this;
+            
             $.ajax({
-                type:'POST',
+                type: 'POST',
                 url: $(self).attr('href'),
             })
             .done(function(data){
