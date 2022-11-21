@@ -5,9 +5,9 @@ const User=require('../models/user');
 
 //tell passport to use a new strategy for google login
 passport.use(new googleStrategy({
-    clientID:"554237733084-216e7fj93sc86ari63fbafd0k2sc2r6d.apps.googleusercontent.com",
-    clientSecret:"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",
-    callbackURL:"http://localhost:8000/users/auth/google/callback"
+    clientID: "554237733084-216e7fj93sc86ari63fbafd0k2sc2r6d.apps.googleusercontent.com",
+    clientSecret: "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",
+    callbackURL: "http://localhost:8300/users/auth/google/callback",
     },
     function(accessToken,refreshToken,profile,done){
         User.findOne({email:profile.emails[0].value}).exec(function(err,user){
